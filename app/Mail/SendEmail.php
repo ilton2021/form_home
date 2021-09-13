@@ -10,6 +10,8 @@ use App\Models\Funcionario;
 use App\Models\Unidade;
 use App\Models\Cargos;
 use DB;
+use App\Models\GestorFuncionario;
+
 
 class SendEmail extends Mailable
 {
@@ -31,7 +33,7 @@ class SendEmail extends Mailable
 		$cargo   = Cargos::where('id', $cargo)->get();
 		$gestorF = GestorFuncionario::where('email_funcionario', $funcionario[0]->email)->get();
 		$emailG  = $gestorF[0]->email_gestor;
-		return $this->from('portal@hcpgestao.org.br', 'Informática HCP Gestão')
+		return $this->from('joao.melo@hcpgestao.org.br', 'Informática HCP Gestão')
 					->cc($emailG)
 					->view('mail.email')
 					->subject('Trabalho Home Office')

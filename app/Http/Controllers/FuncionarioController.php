@@ -16,7 +16,7 @@ class FuncionarioController extends Controller
 {
 	public function email()
 	{
-		$funcionario = Funcionario::where('id', 3)->get();
+		$funcionario = Funcionario::where('id',3)->get();
 		$cargo = $funcionario[0]->cargo;
 		$cargo = Cargos::where('id', $cargo)->get();
 		$unidade = $funcionario[0]->unidade_id;
@@ -26,7 +26,7 @@ class FuncionarioController extends Controller
 	
 	public function email2()
 	{
-		$funcionario = Funcionario::where('id', 3)->get();
+		$funcionario = Funcionario::where('id')->get();
 		$cargo = $funcionario[0]->cargo;
 		$cargo = Cargos::where('id', $cargo)->get();
 		$unidade = $funcionario[0]->unidade_id;
@@ -55,10 +55,9 @@ class FuncionarioController extends Controller
 			$unidade 	 = $input['unidade']; 
 			$gestor_func = GestorFuncionario::create($input);
 			Mail::send([], [], function($m) use ($gestor,$func,$func_email,$unidade) {
-				$m->from('portal@hcpgestao.org.br', 'Informática HCP Gestão');
-				$m->cc('infra@hcpgestao.org.br');
+				$m->from('joao.melo@hcpgestao.org.br', 'Informática HCP Gestão');
 				$m->subject('Trabalho Home Office');
-				$m->setBody('O Gestor: '.$gestor. ' solicita que '.$func.' da Unidade: '.$unidade.' ,preencha o formulário para trabalhar Home Office. Acesse o link do Formulário: www.form-home.hcpgestao.org.br/funcionario');
+				$m->setBody('O Gestor: '.$gestor. ' solicita que '.$func.' da Unidade: '.$unidade.' ,preencha o formulário para trabalhar Home Office. Acesse o link do Formulário: https://hcpgestao.org.br/formhome/public/funcionario');
 				$m->to($func_email);
 			});
 			$nome  = $gestor;
@@ -76,9 +75,9 @@ class FuncionarioController extends Controller
 			'unidade'  	    => 'required|max:1',
 			'nome_completo'	=> 'required|min:20',
 			'matricula' 	=> 'required|max:255',
-			'cpf'			=> 'required|max:11',
+			'cpf'			=> 'required|max:14',
 			'cargo'			=> 'required|max:255',
-			'telefone'		=> 'required|max:20',
+			'telefone'		=> 'required|max:14',
 			'atividades' 	=> 'required|max:1000',
 			'declaracao'  	=> 'required|max:1',
             'email'			=> 'required|email|max:300'
